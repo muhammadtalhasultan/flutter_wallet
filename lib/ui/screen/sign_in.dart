@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_wallet/ui/screen/home.dart';
+import 'package:flutter_wallet/ui/screen/main.dart';
 import 'package:flutter_wallet/util/file_path.dart';
 import 'package:intl/intl.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -19,32 +19,34 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: SvgPicture.asset(mainBanner),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(18),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  _topContent(),
-                  _centerContent(),
-                  _bottomContent()
-                ],
+      color: Theme.of(context).backgroundColor,
+      child: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SvgPicture.asset(mainBanner),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _topContent(),
+                    _centerContent(),
+                    _bottomContent()
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -54,17 +56,13 @@ class _SignInPageState extends State<SignInPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(
-          height: 18, // MediaQuery.of(context).size.height
+          height: 18,
         ),
         Row(
           children: <Widget>[
             Text(
               formattedTime,
-              style: GoogleFonts.poppins(
-                fontSize: 20,
-                color: const Color(0xff1B1D28),
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.headline6,
             ),
             const SizedBox(
               width: 30,
@@ -75,11 +73,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             Text(
               '34° C',
-              style: GoogleFonts.poppins(
-                fontSize: 18,
-                color: const Color(0xff1B1D28),
-                fontWeight: FontWeight.w700,
-              ),
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ],
         ),
@@ -88,11 +82,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
         Text(
           formattedDate,
-          style: GoogleFonts.poppins(
-            fontSize: 12,
-            color: const Color(0xff1B1D28),
-            fontWeight: FontWeight.w400,
-          ),
+          style: Theme.of(context).textTheme.bodyText2,
         )
       ],
     );
@@ -110,23 +100,14 @@ class _SignInPageState extends State<SignInPage> {
           ),
           Text(
             'eWalle',
-            style: GoogleFonts.poppins(
-              fontSize: 22,
-              color: const Color(0xff1B1D28),
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(context).textTheme.headline5,
           ),
           const SizedBox(
             height: 18,
           ),
           Text(
             'Open An Account For Digital  E-Wallet Solutions.\nInstant Payouts. \n\nJoin For Free.',
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              height: 1.6,
-              color: const Color(0xff7b7f9e),
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
           )
         ],
       ),
@@ -147,18 +128,13 @@ class _SignInPageState extends State<SignInPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomePage(),
+                builder: (context) => const MainPage(),
               ),
             );
           },
           child: Text(
             'Sign in',
-            style: GoogleFonts.poppins(
-              fontSize: 15,
-              height: 1.6,
-              color: const Color(0xff212330),
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(context).textTheme.button,
           ),
         ),
         const SizedBox(
@@ -166,11 +142,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
         Text(
           'Create an Account',
-          style: GoogleFonts.poppins(
-            fontSize: 11,
-            color: const Color(0xff212330),
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.bodyText2,
         )
       ],
     );

@@ -18,3 +18,4 @@ const String more = 'assets/svg/more.svg';
 const String recive = 'assets/svg/receive.svg';
 const String send = 'assets/svg/send.svg';
 const String scan = 'assets/svg/scan.svg';
+const String cross = 'assets/svg/cross.svg';

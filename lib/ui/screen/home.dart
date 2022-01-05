@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_wallet/util/file_path.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_wallet/util/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,80 +10,87 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+ThemeManager _themeManager = ThemeManager();
+
 class _HomePageState extends State<HomePage> {
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+
+  bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 18, right: 18, top: 34),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _contentHeader(),
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                'Account Overview',
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  color: const Color(0xff3A4276),
-                  fontWeight: FontWeight.w800,
+    return Transform.rotate(
+      angle: isDrawerOpen ? -0.18 : 0,
+      child: AnimatedContainer(
+        transform: Matrix4.translationValues(xOffset, yOffset, -50)
+          ..scale(scaleFactor)
+          ..rotateY(isDrawerOpen ? -0.5 : 0),
+        duration: const Duration(milliseconds: 250),
+        decoration: BoxDecoration(
+            // color: Colors.grey[200],
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 18, right: 18, top: 34),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _contentHeader(),
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              _contentOverView(),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Send Money',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xff3A4276),
-                      fontWeight: FontWeight.w800,
+                Text(
+                  'Account Overview',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                _contentOverView(),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Send Money',
+                      style: Theme.of(context).textTheme.headline4,
                     ),
-                  ),
-                  SvgPicture.asset(
-                    scan,
-                    width: 18,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              _contentSendMoney(),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Services',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xff3A4276),
-                      fontWeight: FontWeight.w800,
+                    SvgPicture.asset(
+                      scan,
+                      color: Theme.of(context).iconTheme.color,
+                      width: 18,
                     ),
-                  ),
-                  SvgPicture.asset(
-                    filter,
-                    width: 16,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              _contentServices(context),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _contentSendMoney(),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Services',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    SvgPicture.asset(
+                      filter,
+                      color: Theme.of(context).iconTheme.color,
+                      width: 18,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                _contentServices(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -105,17 +112,25 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               'eWalle',
-              style: GoogleFonts.poppins(
-                fontSize: 22,
-                color: const Color(0xff3A4276),
-                fontWeight: FontWeight.w800,
-              ),
+              style: Theme.of(context).textTheme.headline3,
             )
           ],
         ),
-        SvgPicture.asset(
-          menu,
-          width: 16,
+        InkWell(
+          onTap: () {
+            setState(() {
+              print('call');
+              xOffset = 240;
+              yOffset = 180;
+              scaleFactor = 0.7;
+              isDrawerOpen = true;
+            });
+          },
+          child: SvgPicture.asset(
+            menu,
+            width: 16,
+            color: Theme.of(context).iconTheme.color,
+          ),
         ),
       ],
     );
@@ -126,7 +141,8 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.only(left: 18, right: 18, top: 22, bottom: 22),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color(0xffF1F3F6),
+        color: Theme.of(context).cardColor,
+        // color: const Color(0xffF1F3F6),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,66 +152,64 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Text(
                 '20,600',
-                style: GoogleFonts.poppins(
-                  fontSize: 24,
-                  color: const Color(0xff171822),
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(
                 height: 12,
               ),
               Text(
                 'Current Balance',
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  color: const Color(0xff3A4276).withOpacity(1),
-                  fontWeight: FontWeight.w400,
-                ),
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                    ),
               )
             ],
           ),
-          RaisedButton(
-            onPressed: () {},
-            elevation: 0,
-            padding: const EdgeInsets.all(12),
-            child: const Text(
-              '+',
-              style: TextStyle(
-                fontSize: 22,
-                color: Color(0xff1B1D28),
+          Container(
+            height: 55,
+            width: 55,
+            decoration: BoxDecoration(
+              color: const Color(0xffFFAC30),
+              borderRadius: BorderRadius.circular(80),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.add,
               ),
             ),
-            shape: const CircleBorder(),
-            color: const Color(0xffFFAC30),
-          )
+          ),
         ],
       ),
     );
   }
 
   Widget _contentSendMoney() {
-    return Container(
+    return SizedBox(
       height: 100,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Container(
             width: 80,
-            padding: const EdgeInsets.all(18),
-            child: RaisedButton(
-              onPressed: () {},
-              elevation: 0,
-              padding: const EdgeInsets.all(12),
-              child: const Text(
-                '+',
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Color(0xff1B1D28),
+            padding: const EdgeInsets.only(
+              left: 18,
+              right: 18,
+              top: 28,
+              bottom: 28,
+            ),
+            child: Container(
+              height: 10,
+              width: 10,
+              decoration: const BoxDecoration(
+                color: Color(0xffFFAC30),
+                shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.add,
                 ),
               ),
-              shape: const CircleBorder(),
-              color: const Color(0xffFFAC30),
             ),
           ),
           Container(
@@ -204,7 +218,7 @@ class _HomePageState extends State<HomePage> {
             width: 80,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: const Color(0xffF1F3F6),
+              color: Theme.of(context).cardColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                       border: Border.all(color: const Color(0xffD8D9E4))),
                   child: CircleAvatar(
                     radius: 22.0,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).backgroundColor,
                     child: ClipRRect(
                       child: SvgPicture.asset(avatorOne),
                       borderRadius: BorderRadius.circular(50.0),
@@ -225,11 +239,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Text(
                   'Mike',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    color: const Color(0xff3A4276),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1,
                 )
               ],
             ),
@@ -239,8 +249,9 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16),
             width: 80,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color(0xffF1F3F6)),
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).cardColor,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -250,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                       border: Border.all(color: const Color(0xffD8D9E4))),
                   child: CircleAvatar(
                     radius: 22.0,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).backgroundColor,
                     child: ClipRRect(
                       child: SvgPicture.asset(avatorTwo),
                       borderRadius: BorderRadius.circular(50.0),
@@ -259,11 +270,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Text(
                   'Joseph',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    color: const Color(0xff3A4276),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1,
                 )
               ],
             ),
@@ -273,8 +280,9 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16),
             width: 80,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color(0xffF1F3F6)),
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).cardColor,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -284,7 +292,7 @@ class _HomePageState extends State<HomePage> {
                       border: Border.all(color: const Color(0xffD8D9E4))),
                   child: CircleAvatar(
                     radius: 22.0,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).backgroundColor,
                     child: ClipRRect(
                       child: SvgPicture.asset(avatorThree),
                       borderRadius: BorderRadius.circular(50.0),
@@ -293,11 +301,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Text(
                   'Ashley',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    color: const Color(0xff3A4276),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1,
                 )
               ],
             ),
@@ -340,12 +344,12 @@ class _HomePageState extends State<HomePage> {
                   height: 50,
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: const Color(0xffF1F3F6)),
+                    borderRadius: BorderRadius.circular(8),
+                    color: Theme.of(context).cardColor,
+                  ),
                   child: SvgPicture.asset(
                     value.img,
-                    // height: 8,
-                    // width: 8,
+                    color: Theme.of(context).iconTheme.color,
                   ),
                 ),
                 const SizedBox(
@@ -354,10 +358,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   value.title,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      color: const Color(0xff3A4276),
-                      fontWeight: FontWeight.w500),
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 const SizedBox(
                   height: 14,
