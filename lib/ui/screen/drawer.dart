@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_wallet/ui/screen/home.dart';
+import 'package:flutter_wallet/ui/screen/home.dart';
 import 'package:flutter_wallet/util/file_path.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -20,6 +22,8 @@ List<Map> drawerItems = [
 ];
 
 class _DrawerScreenState extends State<DrawerScreen> {
+// HomePage homePage=HomePage();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,7 +86,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 const Spacer(),
-                SvgPicture.asset(cross),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  },
+                  child: SvgPicture.asset(cross),
+                ),
                 const SizedBox(
                   width: 20,
                 ),

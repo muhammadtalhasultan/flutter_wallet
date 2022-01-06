@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_wallet/ui/screen/home.dart';
 import 'package:flutter_wallet/ui/screen/main.dart';
 import 'package:flutter_wallet/util/file_path.dart';
 import 'package:intl/intl.dart';

@@ -20,76 +20,78 @@ class _HomePageState extends State<HomePage> {
   bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: isDrawerOpen ? -0.18 : 0,
-      child: AnimatedContainer(
-        transform: Matrix4.translationValues(xOffset, yOffset, -50)
-          ..scale(scaleFactor)
-          ..rotateY(isDrawerOpen ? -0.5 : 0),
-        duration: const Duration(milliseconds: 250),
-        decoration: BoxDecoration(
-            // color: Colors.grey[200],
+    return Scaffold(
+      body: Transform.rotate(
+        angle: isDrawerOpen ? -0.18 : 0,
+        child: AnimatedContainer(
+          transform: Matrix4.translationValues(xOffset, yOffset, -50)
+            ..scale(scaleFactor)
+            ..rotateY(isDrawerOpen ? -0.5 : 0),
+          duration: const Duration(milliseconds: 250),
+          decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 18, right: 18, top: 34),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _contentHeader(),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  'Account Overview',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                _contentOverView(),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Send Money',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    SvgPicture.asset(
-                      scan,
-                      color: Theme.of(context).iconTheme.color,
-                      width: 18,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                _contentSendMoney(),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Services',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    SvgPicture.asset(
-                      filter,
-                      color: Theme.of(context).iconTheme.color,
-                      width: 18,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                _contentServices(context),
-              ],
+            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 18, right: 18, top: 34),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _contentHeader(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Account Overview',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _contentOverView(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Send Money',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      SvgPicture.asset(
+                        scan,
+                        color: Theme.of(context).iconTheme.color,
+                        width: 18,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  _contentSendMoney(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Services',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      SvgPicture.asset(
+                        filter,
+                        color: Theme.of(context).iconTheme.color,
+                        width: 18,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _contentServices(context),
+                ],
+              ),
             ),
           ),
         ),
