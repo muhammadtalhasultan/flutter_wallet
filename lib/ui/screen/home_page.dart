@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_wallet/util/file_path.dart';
-import 'package:flutter_wallet/util/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,89 +9,70 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-ThemeManager _themeManager = ThemeManager();
-
 class _HomePageState extends State<HomePage> {
-  double xOffset = 0;
-  double yOffset = 0;
-  double scaleFactor = 1;
-
-  bool isDrawerOpen = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Transform.rotate(
-        angle: isDrawerOpen ? -0.18 : 0,
-        child: AnimatedContainer(
-          transform: Matrix4.translationValues(xOffset, yOffset, -50)
-            ..scale(scaleFactor)
-            ..rotateY(isDrawerOpen ? -0.5 : 0),
-          duration: const Duration(milliseconds: 250),
-          decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 18, right: 18, top: 34),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 18, right: 18, top: 34),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _contentHeader(),
+              const SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Account Overview',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              _contentOverView(),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  _contentHeader(),
-                  const SizedBox(
-                    height: 30,
-                  ),
                   Text(
-                    'Account Overview',
+                    'Send Money',
                     style: Theme.of(context).textTheme.headline4,
                   ),
-                  const SizedBox(
-                    height: 16,
+                  SvgPicture.asset(
+                    scan,
+                    color: Theme.of(context).iconTheme.color,
+                    width: 18,
                   ),
-                  _contentOverView(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Send Money',
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                      SvgPicture.asset(
-                        scan,
-                        color: Theme.of(context).iconTheme.color,
-                        width: 18,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  _contentSendMoney(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Services',
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                      SvgPicture.asset(
-                        filter,
-                        color: Theme.of(context).iconTheme.color,
-                        width: 18,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  _contentServices(context),
                 ],
               ),
-            ),
+              const SizedBox(height: 16),
+              _contentSendMoney(),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Services',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  SvgPicture.asset(
+                    filter,
+                    color: Theme.of(context).iconTheme.color,
+                    width: 18,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              _contentServices(context),
+            ],
           ),
         ),
       ),
@@ -121,11 +101,11 @@ class _HomePageState extends State<HomePage> {
         InkWell(
           onTap: () {
             setState(() {
-              print('call');
-              xOffset = 240;
-              yOffset = 180;
-              scaleFactor = 0.7;
-              isDrawerOpen = true;
+              // print('call');
+              // xOffset = 240;
+              // yOffset = 180;
+              // scaleFactor = 0.7;
+              // isDrawerOpen = true;
             });
           },
           child: SvgPicture.asset(
@@ -336,7 +316,7 @@ class _HomePageState extends State<HomePage> {
         children: listServices.map((value) {
           return GestureDetector(
             onTap: () {
-              print('${value.title}');
+              // print('${value.title}');
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

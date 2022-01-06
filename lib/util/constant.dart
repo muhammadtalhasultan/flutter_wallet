@@ -12,7 +12,6 @@ ThemeData lightTheme = ThemeData(
   backgroundColor: COLOR_BACKGROUND,
   primaryColor: COLOR_PRIMARY,
   cardColor: const Color(0xffF1F3F6),
-  accentColor: COLOR_BACKGROUND_LIGHT,
   iconTheme: const IconThemeData(
     color: Color(0xFF3A4276),
   ),
@@ -64,7 +63,7 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black,
       fontWeight: FontWeight.w700,
     ),
-  ),
+  ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: COLOR_BACKGROUND_LIGHT),
 );
 
 ThemeData darkTheme = ThemeData(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_wallet/ui/screen/main.dart';
+import 'package:flutter_wallet/ui/screen/drawer_page.dart';
 import 'package:flutter_wallet/util/file_path.dart';
 import 'package:intl/intl.dart';
 
@@ -127,7 +127,7 @@ class _SignInPageState extends State<SignInPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const MainPage(),
+                builder: (context) => const DrawerPage(),
               ),
             );
           },

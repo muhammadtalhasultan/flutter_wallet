@@ -12,7 +12,6 @@ class ThemeManager with ChangeNotifier {
     } else {
       _themeMode = ThemeMode.light;
     }
-    // _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
 }
